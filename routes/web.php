@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\GuestVisitController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MyInfoController;
@@ -101,3 +102,9 @@ Route::middleware('guest')->group(function() {
 });
 
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
+
+
+Route::prefix('users-info')->middleware(['auth', 'access.level'])->group(function () {
+    Route::get('/', [GuestVisitController::class, 'index'])->name('usersInfo.index');
+    Route::delete('/{guest}', [GuestVisitController::class, 'destroy'])->name('usersInfo.destroy');
+});

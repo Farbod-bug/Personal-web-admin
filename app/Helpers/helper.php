@@ -12,3 +12,8 @@ function getJalaliDate($date)
 {
     return verta($date)->format('Y/m/d');
 }
+
+function getJalaliDate2($date)
+{
+    return verta($date)->format('Y/m/d H:i');
+}
