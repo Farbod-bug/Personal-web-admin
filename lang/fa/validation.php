@@ -188,6 +188,9 @@ return [
         'customer'     => 'مشتری',
         'category'     => 'دسته بندی',
         'web_address'     => 'آدرس سایت',
+        'oldPassword'     => 'پسورد قبلی',
+        'newPassword'     => 'پسورد جدید',
+        'comfirmedPass'     => 'تکرار پسورد',
     ],
 
 ];

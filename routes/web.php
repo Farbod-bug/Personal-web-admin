@@ -104,7 +104,7 @@ Route::middleware('guest')->group(function() {
 Route::get('/logout', [AuthController::class, 'logout'])->name('auth.logout')->middleware('auth');
 
 
-Route::prefix('users-info')->middleware(['auth', 'access.level'])->group(function () {
+Route::prefix('user-info')->middleware(['auth', 'access.level'])->group(function () {
     Route::get('/', [GuestVisitController::class, 'index'])->name('usersInfo.index');
     Route::delete('/{guest}', [GuestVisitController::class, 'destroy'])->name('usersInfo.destroy');
 });

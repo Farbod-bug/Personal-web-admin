@@ -17,7 +17,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->is('users-info*') ? 'active' : '' }}" href="{{ route('usersInfo.index') }}">
+                <a class="nav-link {{ request()->is('user-info*') ? 'active' : '' }}" href="{{ route('usersInfo.index') }}">
                     <i class="bi bi-people me-2"></i>
                     مشخصات بازدید کننده ها
                 </a>

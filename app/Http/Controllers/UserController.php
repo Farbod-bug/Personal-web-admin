@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -22,12 +23,16 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:30',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:8',
             'access_level' => 'required|in:0,1',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         User::create([
             'name' => $request->name,
@@ -36,7 +41,10 @@ class UserController extends Controller
             'access_level' => $request->access_level,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'ادیمن با موفقیت ایجاد شد!');
+        return response()->json([
+            'success' => 'ادمین با موفقیت ایجاد شد.',
+            'redirect' => route('users.index'),
+        ]);
     }
 
     public function edit(User $user)
@@ -46,11 +54,15 @@ class UserController extends Controller
 
     public function update(User $user, Request $request)
     {
-        $request->validate([
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string|max:30',
             'email' => 'required|email|unique:users,email,' . $user->id,
             'access_level' => 'required|in:0,1',
         ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
         $user->update([
             'name' => $request->name,
@@ -58,7 +70,10 @@ class UserController extends Controller
             'access_level' => $request->access_level,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'اطلاعات ادمین با موفقیت ویرایش شد');
+        return response()->json([
+            'success' => 'ادمین با موفقیت ویرایش شد.',
+            'redirect' => route('users.index'),
+        ]);
     }
 
     public function editPass(User $user)
